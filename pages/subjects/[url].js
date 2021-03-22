@@ -6,12 +6,18 @@ import styles from '../../styles/Home.module.css'
 const Subject = ({ subject }) => {
   const router = useRouter()
   const { url } = router.query
+  if (router.isFallback) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <main className={styles.main}>
-      <Image
-      data={subject.subjectImage.responsiveImage}
-      />
+      {subject.subjectImage  &&
+        <Image
+          data={subject.subjectImage.responsiveImage}
+          />
+      }
+    
       <div className={styles.card}>
         <h1 className={styles.title}>
           {subject.subjectName}

@@ -16,7 +16,6 @@ export async function getStaticProps({ preview = false }) {
 }
 
 export default function Home({ allSubjects }) {
-  console.log(allSubjects);
   return (
   
     <div className={styles.container}>
