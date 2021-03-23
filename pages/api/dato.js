@@ -60,6 +60,15 @@ export async function getCourse(url) {
             ...responsiveImageFragment
           }
         }
+        subject {
+          subjectName
+          subjectImage {
+            responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
+              ...responsiveImageFragment
+            }
+          }
+          url
+        }
       }
     }
     ${responsiveImageFragment}`,

@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 import { Image, StructuredText } from "react-datocms";
 import { getCourse, getAllCourses} from '../api/dato';
 import styles from '../../styles/Home.module.css'
@@ -8,7 +9,7 @@ const Course = ({ course }) => {
   if (router.isFallback) {
     return <h1>Loading...</h1>;
   }
-
+  console.log(course.subject)
   return (
     <main className={styles.main}>
       {course.courseImage  &&
@@ -22,22 +23,31 @@ const Course = ({ course }) => {
           {course.courseTitle}
         </h1>
         </div>
-      {/* <div className={styles.card}>
+      <div className={styles.card}>
         <h3>Summary</h3>
-        <p>{subject.subjectSummary}</p>
+        <p>{course.courseSummary}</p>
       </div>
       <div className={styles.card}>
         <h3>Overview</h3>
-        <StructuredText data={subject.subjectOverview} />
+        <StructuredText data={course.courseOverview} />
       </div>
       <div className={styles.card}>
-        <h3>Structure</h3>
-        <StructuredText data={subject.courseStructure} />
+        <h3>Subject</h3>
+            {course.subject.map((s, l) => {
+                return(
+                    <Link as={`/subjects/${s.url}`} href="/subjects/[s.url]">
+                        <a className={`styles.card styles.cardLink`}>
+                        <p>{s.subjectName}</p>
+                        {s.subjectImage ?
+                            <Image
+                            data={s.subjectImage.responsiveImage}
+                            />
+                        : null}
+                        </a>
+                    </Link>
+                )
+            })}
       </div>
-      <div className={styles.card}>
-        <h3>Career Prospects</h3>
-        <StructuredText data={subject.careerProspects} />
-      </div> */}
     </main>
   )
 }
