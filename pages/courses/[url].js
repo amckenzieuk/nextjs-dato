@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { Image, StructuredText } from "react-datocms";
-import { getSubject, getAllSubjects } from '../api/dato';
+import { getCourse, getAllCourses} from '../api/dato';
 import styles from '../../styles/Home.module.css'
 
-const Subject = ({ subject }) => {
+const Course = ({ course }) => {
   const router = useRouter()
   if (router.isFallback) {
     return <h1>Loading...</h1>;
@@ -11,18 +11,18 @@ const Subject = ({ subject }) => {
 
   return (
     <main className={styles.main}>
-      {subject.subjectImage  &&
+      {course.courseImage  &&
         <Image
-          data={subject.subjectImage.responsiveImage}
+          data={course.courseImage.responsiveImage}
           />
       }
     
       <div className={styles.card}>
         <h1 className={styles.title}>
-          {subject.subjectName}
+          {course.courseTitle}
         </h1>
         </div>
-      <div className={styles.card}>
+      {/* <div className={styles.card}>
         <h3>Summary</h3>
         <p>{subject.subjectSummary}</p>
       </div>
@@ -37,25 +37,25 @@ const Subject = ({ subject }) => {
       <div className={styles.card}>
         <h3>Career Prospects</h3>
         <StructuredText data={subject.careerProspects} />
-      </div>
+      </div> */}
     </main>
   )
 }
 
-export default Subject
+export default Course
 
 export async function getStaticProps({ params, preview = false }) {
-  const subject = await getSubject(params.url, preview)
+  const course = await getCourse(params.url, preview)
 
   return {
-    props: { subject }
+    props: { course }
   }
 }
 
 export async function getStaticPaths() {
-  const allSubjects = await getAllSubjects()
+  const allCourses = await getAllCourses()
   return {
-    paths: allSubjects?.map((subject) => `/subjects/${subject.url}`) || [],
+    paths: allCourses?.map((course) => `/courses/${course.url}`) || [],
     fallback: true,
   }
 }

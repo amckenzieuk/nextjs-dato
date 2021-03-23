@@ -28,18 +28,57 @@ export function request({ query, variables, preview }) {
   return client.request(query, variables);
 }
 
-const HOMEPAGE_QUERY = `query MyQuery {
-  allSubjects {
-    id
-    subjectName
-    subjectSummary
-    url
-  }
-}`;
+export async function getAllCourses() {
+  const data = await request({
+    query: `query getAllCourses {
+      allUgCourses {
+        id
+        courseTitle
+        courseSummary
+        url
+      }
+    }`,
+    variables: { limit: 10 }
+  });
+  return data?.allUgCourses;
+}
+
+export async function getCourse(url) {
+  const data = await request({
+    query: `query courseByURL($url: String) {
+      ugCourse(filter: {url: {eq: $url}}) {
+        courseStructure {
+          value
+        }
+        courseOverview {
+          value
+        }
+        courseTitle
+        courseSummary
+        courseImage {
+          responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
+            ...responsiveImageFragment
+          }
+        }
+      }
+    }
+    ${responsiveImageFragment}`,
+    variables: { url }
+  });
+  return data?.ugCourse;
+}
+
 
 export async function getAllSubjects() {
   const data = await request({
-    query: HOMEPAGE_QUERY,
+    query: `query getAllSubjects {
+      allSubjects {
+        id
+        subjectName
+        subjectSummary
+        url
+      }
+    }`,
     variables: { limit: 10 }
   });
   return data?.allSubjects;
