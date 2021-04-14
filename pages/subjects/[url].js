@@ -42,6 +42,7 @@ const Subject = ({ subject, courses }) => {
                         />
                     : null}
                   </a>
+                  <p>{c.courseSummary}</p>
               </Link>
             )
           })}
