@@ -35,10 +35,19 @@ export async function getAllCourses() {
         id
         courseTitle
         courseSummary
+        courseImage {
+          responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
+            ...responsiveImageFragment
+          }
+        }
         url
+        subject {
+          url
+        }
+
       }
-    }`,
-    variables: { limit: 10 }
+    }
+    ${responsiveImageFragment}`,
   });
   return data?.allUgCourses;
 }
@@ -113,6 +122,7 @@ export async function getSubject(url) {
             ...responsiveImageFragment
           }
         }
+        url
       }
     }
     ${responsiveImageFragment}`,
@@ -120,3 +130,28 @@ export async function getSubject(url) {
   });
   return data?.subject;
 }
+
+// export async function getSubjectCourses(url) {
+//   const data = await request({
+//     query: `query getSubjectCourses($url: String) {
+//       allUgCourses(
+//         filter: {
+//             subject: {
+//               url: eq: $url
+//             }
+//           }
+//         ) {
+//         courseTitle
+//         courseSummary
+//         courseImage {
+//           responsiveImage(imgixParams: {fm: jpg, fit: crop, w: 2000, h: 1000 }) {
+//             ...responsiveImageFragment
+//           }
+//         }
+//       }
+//     }
+//     ${responsiveImageFragment}`,
+//     variables: { url }
+//   });
+//   return data?.allUgCourses;
+// }

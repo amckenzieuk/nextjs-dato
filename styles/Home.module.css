@@ -113,6 +113,10 @@
   height: 1em;
 }
 
+.displayFlex {
+  display: flex;
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

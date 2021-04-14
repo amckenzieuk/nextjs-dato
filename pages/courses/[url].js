@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Image, StructuredText } from "react-datocms";
 import { getCourse, getAllCourses} from '../api/dato';
-import styles from '../../styles/Home.module.css'
+import styles from '../../styles/Home.module.css';
 
 const Course = ({ course }) => {
   const router = useRouter()
@@ -33,10 +33,11 @@ const Course = ({ course }) => {
       </div>
       <div className={styles.card}>
         <h3>Subject</h3>
-            {course.subject.map((s, l) => {
+        <div className={styles.displayFlex}>
+            {course.subject.map((s) => {
                 return(
                     <Link as={`/subjects/${s.url}`} href="/subjects/[s.url]">
-                        <a className={`styles.card styles.cardLink`}>
+                        <a className={`${styles.card} ${styles.cardLink}`}>
                         <p>{s.subjectName}</p>
                         {s.subjectImage ?
                             <Image
@@ -47,6 +48,7 @@ const Course = ({ course }) => {
                     </Link>
                 )
             })}
+        </div>
       </div>
     </main>
   )
