@@ -34,6 +34,7 @@ const Subject = ({ subject, courses }) => {
           {courses.map((c) => {
             return(
               <Link as={`/courses/${c.url}`} href="/courses/[c.url]">
+                
                   <a className={`${styles.card} ${styles.cardLink}`}>
                     <p>{c.courseTitle}</p>
                     {c.courseImage ?
@@ -42,7 +43,7 @@ const Subject = ({ subject, courses }) => {
                         />
                     : null}
                   </a>
-                  <p>{c.courseSummary}</p>
+                  {/* <p>{c.courseSummary}</p> */}
               </Link>
             )
           })}

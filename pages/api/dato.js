@@ -69,6 +69,17 @@ export async function getCourse(url) {
             ...responsiveImageFragment
           }
         }
+        gcseProfile {
+          grade
+          fullDetails
+          title
+          qualification
+        }
+        languageProfile {
+          profile
+          profileRequirement(markdown: true)
+          profileDetails
+        }
         subject {
           subjectName
           subjectImage {

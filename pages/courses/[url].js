@@ -1,6 +1,9 @@
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import { Image, StructuredText } from "react-datocms";
+import ReactMarkdown from 'react-markdown';
+import {render} from 'react-dom';
+import gfm from 'remark-gfm';
 import { getCourse, getAllCourses} from '../api/dato';
 import styles from '../../styles/Home.module.css';
 
@@ -9,7 +12,7 @@ const Course = ({ course }) => {
   if (router.isFallback) {
     return <h1>Loading...</h1>;
   }
-  console.log(course.subject)
+  console.log(course)
   return (
     <main className={styles.main}>
       {course.courseImage  &&
@@ -49,6 +52,25 @@ const Course = ({ course }) => {
                 )
             })}
         </div>
+      </div>
+      <div className={styles.card}>
+        <h3>Additional Requirements</h3>
+        <h2>GCSE</h2>
+        <ul>
+          {course.gcseProfile.map((profile) => {
+            return (
+              <li>
+                <b>{profile.qualification}</b><br/>
+                {profile.title} <a href={profile.fullDetails}>Full Details</a>
+              </li>
+            )
+          })}
+        </ul>
+        {/* <h2>English Language</h2>
+        <ReactMarkdown
+            source={course.languageProfile.profileRequirementprofileRequirement}
+            escapeHtml={false} */}
+        {/* /> */}
       </div>
     </main>
   )
